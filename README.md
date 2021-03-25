@@ -2,7 +2,7 @@
 
 ### What is This?
 
-Hello, I am Thomsen Cummings, and this is my basic template for web app development. I much prefer this setup to create-react-app as I know exactly what goes into it, and how to easily extend it.
+Hello, I am Thomsen Cummings, and this is a fun little Hot or Not type app that uses Pixabay to pull random images and have the user decide between which two they like best. It uses an ELO type ranking system to determine the most favorited image.
 
 **Tech stack:**
 
