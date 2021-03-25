@@ -4,7 +4,7 @@
  * @version 1.0.0
  * @author [Thomsen Cummings](https://github.com/trcummings)
  */
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 
 const CircleCheck = () => (
@@ -21,6 +21,15 @@ const MatchUp = ({
 }) => {
   const [entrant1, entrant2] = currentMatchup;
 
+  const [loadedImages, setImageLoaded] = useState({});
+
+  const bothImagesLoaded =
+    loadedImages[entrant1.id] && loadedImages[entrant2.id];
+
+  function setEntrantLoaded(id) {
+    setImageLoaded({ ...loadedImages, [id]: true });
+  }
+
   return (
     <div className="match-up">
       <h4>Couch Faceoff</h4>
@@ -31,20 +40,36 @@ const MatchUp = ({
             <div
               className="match-up__imageItem"
               onClick={() => pickEntrant(entrant1.id, entrant2.id)}
+              style={bothImagesLoaded ? {} : { display: "none" }}
             >
               <CircleCheck />
-              <img src={entrant1.imageUrl} />
+              <img
+                src={entrant1.imageUrl}
+                onLoad={() => setEntrantLoaded(entrant1.id)}
+              />
             </div>
             <div
               className="match-up__imageItem"
               onClick={() => pickEntrant(entrant2.id, entrant1.id)}
+              style={bothImagesLoaded ? {} : { display: "none" }}
             >
               <CircleCheck />
-              <img src={entrant2.imageUrl} />
+              <img
+                src={entrant2.imageUrl}
+                onLoad={() => setEntrantLoaded(entrant2.id)}
+              />
+            </div>
+            <div
+              className="match-up__centerText"
+              style={bothImagesLoaded ? { display: "none" } : {}}
+            >
+              <p>Loading next matchup...</p>
             </div>
           </Fragment>
         ) : (
-          <div />
+          <div className="match-up__centerText">
+            <p>Round Over!</p>
+          </div>
         )}
       </div>
       <p>{numMatchupsRemaining} matchups Remaining</p>
