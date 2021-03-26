@@ -4,6 +4,10 @@
 
 Hello, I am Thomsen Cummings, and this is a fun little Hot or Not type app that uses Pixabay to pull random images and have the user decide between which two they like best. It uses an ELO ranking system to determine the winning image per session, just like in chess! Also includes Light Mode, Dark Mode, and Clown Mode themes using the React Context API with useContext hooks. NOTE: Dev is not responsible for content of images upon search.
 
+[Live Here!][heroku]
+
+[heroku]: https://image-faceoff.herokuapp.com/
+
 **Tech stack:**
 
 - React.js + SASS (incl. a reset.css file, FontAwesome 5.14, and Google Fonts' Open Sans)
