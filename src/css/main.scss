@@ -445,3 +445,52 @@ div.search-for-matchups {
     }
   }
 }
+
+footer.github-footer {
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      color: $lightest;
+      background-color: $dark;
+
+      & > a {
+        @include hover-state(color, $lightest);
+      }
+    }
+  }
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
+  }
+
+  position: relative;
+  padding: 2em;
+
+  & > a {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+
+    & > i {
+      font-size: 2em;
+      padding-right: 0.25em;
+    }
+  }
+}

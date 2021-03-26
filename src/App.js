@@ -11,6 +11,7 @@ import MatchUp from "./components/MatchUp";
 import LiveResults from "./components/LiveResults";
 import SearchForMatchups from "./components/SearchForMatchups";
 import ThemeModeButton from "./components/ThemeModeButton";
+import GithubFooter from "./components/GithubFooter";
 
 import {
   createNewMatchups,
@@ -110,6 +111,7 @@ const App = () => {
         getImages={getImages}
         initialValues={initialMatchSearch}
       />
+      <GithubFooter />
     </Fragment>
   );
 };
