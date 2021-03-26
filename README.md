@@ -2,7 +2,7 @@
 
 ### What is This?
 
-Hello, I am Thomsen Cummings, and this is a fun little Hot or Not type app that uses Pixabay to pull random images and have the user decide between which two they like best. It uses an ELO type ranking system to determine the most favorited image.
+Hello, I am Thomsen Cummings, and this is a fun little Hot or Not type app that uses Pixabay to pull random images and have the user decide between which two they like best. It uses an ELO ranking system to determine the winning image per session, just like in chess! Also includes Light Mode, Dark Mode, and Clown Mode themes using the React Context API with useContext hooks. NOTE: Dev is not responsible for content of images upon search.
 
 **Tech stack:**
 
