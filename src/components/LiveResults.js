@@ -4,7 +4,7 @@
  * @version 1.0.0
  * @author [Thomsen Cummings](https://github.com/trcummings)
  */
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { useTheme } from "../providers/ThemeContext";
