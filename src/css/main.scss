@@ -4,10 +4,32 @@ body {
 }
 
 // Variables
+// LIGHT MODE
 $white: #ffffff;
 $medium-blue: #37bec3;
 $dark-blue: #062a49;
 $light-blue: #effcfd;
+
+div.theme-icon {
+  position: relative;
+
+  & > i {
+    position: absolute;
+    right: 0;
+    font-size: 2em;
+    padding: 0.5em;
+    cursor: pointer;
+    color: $white;
+
+    &:hover {
+      color: darken($white, 10%);
+    }
+
+    &:active {
+      color: darken($white, 20%);
+    }
+  }
+}
 
 div.match-up {
   margin: auto;

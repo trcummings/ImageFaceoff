@@ -4,12 +4,13 @@
  * @version 1.0.0
  * @author [Thomsen Cummings](https://github.com/trcummings)
  */
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Elo from "elo-js";
 
 import MatchUp from "./components/MatchUp";
 import LiveResults from "./components/LiveResults";
 import SearchForMatchups from "./components/SearchForMatchups";
+import ThemeModeButton from "./components/ThemeModeButton";
 
 import {
   createNewMatchups,
@@ -91,7 +92,8 @@ const App = () => {
 
   // Render
   return (
-    <div>
+    <Fragment>
+      <ThemeModeButton />
       <MatchUp
         currentMatchup={currentMatchups[0]}
         numMatchupsRemaining={currentMatchups.length}
@@ -102,7 +104,7 @@ const App = () => {
         getImages={getImages}
         initialValues={initialMatchSearch}
       />
-    </div>
+    </Fragment>
   );
 };
 

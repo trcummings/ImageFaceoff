@@ -4,8 +4,10 @@
  * @version 1.0.0
  * @author [Thomsen Cummings](https://github.com/trcummings)
  */
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+
+import { useTheme } from "../providers/ThemeContext";
 
 const ResultItem = ({ idx, imgUrl, numMatchups, winRate, eloRating }) => (
   <div className="live-results__resultItem">
@@ -20,6 +22,8 @@ const ResultItem = ({ idx, imgUrl, numMatchups, winRate, eloRating }) => (
 );
 
 const LiveResults = ({ matchupData }) => {
+  const { theme } = useTheme();
+
   // Order results by win rate
   const rankedResults = Object.keys(matchupData)
     .filter(
@@ -48,7 +52,7 @@ const LiveResults = ({ matchupData }) => {
     });
 
   return (
-    <div className="live-results">
+    <div className={`live-results ${theme}`}>
       <h2>Live Results</h2>
       <div className="live-results__results">
         {rankedResults.length > 0 ? (

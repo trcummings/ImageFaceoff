@@ -5,8 +5,9 @@
  * @author [Thomsen Cummings](https://github.com/trcummings)
  */
 import React from "react";
-import PropTypes from "prop-types";
 import { useFormik } from "formik";
+
+import { useTheme } from "../providers/ThemeContext";
 
 const calculateMaxMatchups = (entrants = 0) =>
   Math.ceil(Math.pow(entrants, 2) / 2 - entrants);
@@ -48,6 +49,7 @@ const ErrorMessage = ({ value }) => (
 );
 
 const SearchForMatchups = ({ getImages: onSubmit, initialValues }) => {
+  const { theme } = useTheme();
   const formik = useFormik({
     initialValues,
     validate,
@@ -55,7 +57,7 @@ const SearchForMatchups = ({ getImages: onSubmit, initialValues }) => {
   });
 
   return (
-    <div className="search-for-matchups">
+    <div className={`search-for-matchups ${theme}`}>
       <h2>Start a New Matchup</h2>
       <form onSubmit={formik.handleSubmit}>
         <div className="flex-grow-2 flex-column flex-40">

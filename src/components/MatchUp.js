@@ -7,6 +7,8 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 
+import { useTheme } from "../providers/ThemeContext";
+
 const CircleCheck = () => (
   <div className="match-up__icon">
     <i className="far fa-check-circle" />
@@ -19,6 +21,7 @@ const MatchUp = ({
   currentMatchup = [{}, {}],
   pickEntrant = () => {},
 }) => {
+  const { theme } = useTheme();
   const [entrant1, entrant2] = currentMatchup;
 
   const [loadedImages, setImageLoaded] = useState({});
@@ -31,7 +34,7 @@ const MatchUp = ({
   }
 
   return (
-    <div className="match-up">
+    <div className={`match-up ${theme}`}>
       <h4>Couch Faceoff</h4>
       <h1>Pick the best couch...</h1>
       <div className="match-up__images">
