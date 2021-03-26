@@ -2,7 +2,21 @@ import React, { createContext, useEffect, useState, useContext } from "react";
 
 export const LIGHT_MODE = "light-mode";
 export const DARK_MODE = "dark-mode";
-export const ALL_THEMES = [LIGHT_MODE, DARK_MODE];
+export const CLOWN_MODE = "clown-mode";
+
+export const ALL_THEMES = [LIGHT_MODE, DARK_MODE, CLOWN_MODE];
+
+export const THEME_TO_ICON_CLASS = {
+  [LIGHT_MODE]: "fa-sun",
+  [DARK_MODE]: "fa-moon",
+  [CLOWN_MODE]: "fa-smile-wink",
+};
+
+export const THEME_TO_TITLE = {
+  [LIGHT_MODE]: "Light Mode",
+  [DARK_MODE]: "Dark Mode",
+  [CLOWN_MODE]: "Clown Mode",
+};
 
 const ThemeContext = createContext();
 

@@ -1,21 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import {
   useTheme,
-  LIGHT_MODE,
-  DARK_MODE,
   ALL_THEMES,
+  THEME_TO_ICON_CLASS,
+  THEME_TO_TITLE,
 } from "../providers/ThemeContext";
-
-const themeToIconClass = {
-  [LIGHT_MODE]: "fa-sun",
-  [DARK_MODE]: "fa-moon",
-};
-
-const themeToTitleText = {
-  [LIGHT_MODE]: "Light Mode",
-  [DARK_MODE]: "Dark Mode",
-};
 
 function getNextTheme(currentTheme) {
   // Find the next index in the cycle by incrementing the current index then using modulo to wrap
@@ -31,11 +21,11 @@ const ThemeModeButton = () => {
   return (
     <div
       className="theme-icon"
-      title={`Change Theme To ${themeToTitleText[getNextTheme(theme)]}`}
+      title={`Change Theme To ${THEME_TO_TITLE[getNextTheme(theme)]}`}
     >
       <i
         onClick={() => setTheme(getNextTheme(theme))}
-        className={`far ${themeToIconClass[theme]} ${theme}`}
+        className={`far ${THEME_TO_ICON_CLASS[theme]} ${theme}`}
       />
     </div>
   );

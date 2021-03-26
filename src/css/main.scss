@@ -16,6 +16,12 @@ $medium-purple: #892cdc;
 $dark-purple: #52057b;
 $black: #000000;
 
+// CLOWN MODE
+$clown-yellow: #f9f871;
+$clown-orange: #ffc75f;
+$clown-red: #ff5e78;
+$clown-purple: #845ec2;
+
 @mixin hover-state($property, $color) {
   &:hover {
     #{$property}: darken($color, 10%);
@@ -50,6 +56,12 @@ div.theme-icon {
       color: $light-purple;
 
       @include hover-state(color, $light-purple);
+    }
+
+    &.clown-mode {
+      color: $clown-yellow;
+
+      @include hover-state(color, $clown-yellow);
     }
   }
 }
@@ -88,6 +100,15 @@ div.match-up {
 
   &.dark-mode {
     @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
   }
 
   & > h4 {
@@ -232,6 +253,15 @@ div.live-results {
     @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
   }
 
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
+  }
+
   padding-bottom: 1em;
 
   div.live-results__results {
@@ -327,6 +357,15 @@ div.search-for-matchups {
 
   &.dark-mode {
     @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
   }
 
   padding-bottom: 5em;
