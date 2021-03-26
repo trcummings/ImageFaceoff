@@ -6,9 +6,29 @@ body {
 // Variables
 // LIGHT MODE
 $white: #ffffff;
-$medium-blue: #37bec3;
-$dark-blue: #062a49;
-$light-blue: #effcfd;
+$light-blue: #b2d5ff;
+$medium-blue: #548fd6;
+$dark-blue: #18293d;
+
+// DARK MODE
+$light-purple: #bc6ff1;
+$medium-purple: #892cdc;
+$dark-purple: #52057b;
+$black: #000000;
+
+@mixin hover-state($property, $color) {
+  &:hover {
+    #{$property}: darken($color, 10%);
+  }
+
+  &:focus {
+    #{$property}: darken($color, 15%);
+  }
+
+  &:active {
+    #{$property}: darken($color, 20%);
+  }
+}
 
 div.theme-icon {
   position: relative;
@@ -19,22 +39,56 @@ div.theme-icon {
     font-size: 2em;
     padding: 0.5em;
     cursor: pointer;
-    color: $white;
 
-    &:hover {
-      color: darken($white, 10%);
+    &.light-mode {
+      color: $white;
+
+      @include hover-state(color, $white);
     }
 
-    &:active {
-      color: darken($white, 20%);
+    &.dark-mode {
+      color: $light-purple;
+
+      @include hover-state(color, $light-purple);
     }
   }
 }
 
 div.match-up {
   margin: auto;
-  background-color: $medium-blue;
-  color: $white;
+
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      background-color: $medium;
+      color: $lightest;
+
+      div.match-up__centerText {
+        color: $dark;
+      }
+
+      div.match-up__images {
+        background-color: $lightest;
+
+        div.match-up__imageItem {
+          div.match-up__icon {
+            color: $lightest;
+
+            div.solid-circle {
+              background: $medium;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
 
   & > h4 {
     text-transform: uppercase;
@@ -53,7 +107,6 @@ div.match-up {
   }
 
   div.match-up__centerText {
-    color: $dark-blue;
     font-style: italic;
 
     position: relative;
@@ -71,7 +124,6 @@ div.match-up {
   div.match-up__images {
     width: 70%;
     height: 30vh;
-    background-color: white;
     margin: auto;
     border-radius: 5px;
 
@@ -86,7 +138,6 @@ div.match-up {
       div.match-up__icon {
         position: absolute;
         font-size: 3em;
-        color: $white;
         z-index: 2;
         right: 0.25em;
 
@@ -104,7 +155,6 @@ div.match-up {
           z-index: -1;
           width: 1em;
           height: 1em;
-          background: $medium-blue;
           border-radius: 50%;
         }
       }
@@ -162,14 +212,30 @@ h2 {
 }
 
 div.live-results {
-  color: $dark-blue;
-  background-color: $light-blue;
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      color: $dark;
+      background-color: $lighter;
+
+      div.live-results__results {
+        background-color: $lightest;
+        border: 2px solid $medium;
+      }
+    }
+  }
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
   padding-bottom: 1em;
 
   div.live-results__results {
     width: 80%;
-    background-color: $white;
-    border: 2px solid $medium-blue;
     border-radius: 5px;
     height: 400px;
     margin: auto;
@@ -227,8 +293,42 @@ div.live-results {
 }
 
 div.search-for-matchups {
-  color: $dark-blue;
-  background-color: $light-blue;
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      color: $dark;
+      background-color: $lighter;
+
+      form {
+        input {
+          background-color: $lightest;
+          color: $dark;
+          border: 2px solid $medium;
+        }
+
+        & > button {
+          background-color: $medium;
+          color: $lightest;
+
+          @include hover-state(background-color, $medium);
+
+          &:disabled {
+            background-color: $lighter;
+            border: 1px solid $medium;
+            color: $medium;
+          }
+        }
+      }
+    }
+  }
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
   padding-bottom: 5em;
 
   form {
@@ -243,37 +343,17 @@ div.search-for-matchups {
     }
 
     input {
-      background-color: $white;
-      color: $dark-blue;
       padding: calc(1em - 2px);
-      border: 2px solid $medium-blue;
       border-radius: 5px;
     }
 
     & > button {
-      background-color: $medium-blue;
-      color: $white;
       padding: 1em;
       border-radius: 5px;
       text-align: center;
 
-      &:hover {
-        background-color: darken($medium-blue, 10%);
-      }
-
-      &:focus {
-        background-color: darken($medium-blue, 10%);
-      }
-
-      &:active {
-        background-color: darken($medium-blue, 20%);
-      }
-
       &:disabled {
-        background-color: $light-blue;
         cursor: default;
-        border: 1px solid $medium-blue;
-        color: $medium-blue;
       }
     }
 
