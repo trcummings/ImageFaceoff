@@ -18,6 +18,7 @@ const CircleCheck = () => (
 
 const MatchUp = ({
   searchTerm,
+  isLoadingRound,
   numMatchupsRemaining = 0,
   currentMatchup = [{}, {}],
   pickEntrant = () => {},
@@ -72,7 +73,7 @@ const MatchUp = ({
           </Fragment>
         ) : (
           <div className="match-up__centerText">
-            <p>Round Over!</p>
+            <p>{isLoadingRound ? "Loading Next Round..." : "Round Over!"}</p>
           </div>
         )}
       </div>
@@ -84,6 +85,7 @@ const MatchUp = ({
 MatchUp.propTypes = {
   numMatchupsRemaining: PropTypes.number.isRequired,
   searchTerm: PropTypes.string.isRequired,
+  isLoadingRound: PropTypes.bool.isRequired,
 };
 
 export default MatchUp;

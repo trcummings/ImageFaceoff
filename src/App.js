@@ -30,15 +30,21 @@ const initialMatchSearch = {
 const App = () => {
   const [matchupData, setMatchupData] = useState({});
   const [currentMatchups, setCurrentMatchups] = useState([]);
-  // This is just for display purposes
+  // These are just for display purposes, display search term, show initial load instead of "Round Over"
   const [currentSearchTerm, setSearchTerm] = useState(
     initialMatchSearch.searchTerm
   );
+  const [isLoadingRound, setIsLoadingRound] = useState(true);
 
   const getImages = ({ searchTerm, maxEntrants, totalMatchups }) => {
     setSearchTerm(searchTerm);
+    setIsLoadingRound(true);
     return fetch(
-      `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&per_page=${maxEntrants}&q=${searchTerm}&image_type=photo`
+      `/pixabay?maxEntrants=${maxEntrants}&searchTerm=${searchTerm}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
     )
       .then((res) => res.json())
       .then((body) => {
@@ -49,6 +55,7 @@ const App = () => {
         // Set new value in state
         setMatchupData(newMatchupData);
         setCurrentMatchups(newMatchups);
+        setIsLoadingRound(false);
       });
   };
 
@@ -101,6 +108,7 @@ const App = () => {
     <Fragment>
       <ThemeModeButton />
       <MatchUp
+        isLoadingRound={isLoadingRound}
         searchTerm={currentSearchTerm}
         currentMatchup={currentMatchups[0]}
         numMatchupsRemaining={currentMatchups.length}
