@@ -29,8 +29,13 @@ const initialMatchSearch = {
 const App = () => {
   const [matchupData, setMatchupData] = useState({});
   const [currentMatchups, setCurrentMatchups] = useState([]);
+  // This is just for display purposes
+  const [currentSearchTerm, setSearchTerm] = useState(
+    initialMatchSearch.searchTerm
+  );
 
   const getImages = ({ searchTerm, maxEntrants, totalMatchups }) => {
+    setSearchTerm(searchTerm);
     return fetch(
       `https://pixabay.com/api/?key=${process.env.PIXABAY_API_KEY}&per_page=${maxEntrants}&q=${searchTerm}&image_type=photo`
     )
@@ -95,6 +100,7 @@ const App = () => {
     <Fragment>
       <ThemeModeButton />
       <MatchUp
+        searchTerm={currentSearchTerm}
         currentMatchup={currentMatchups[0]}
         numMatchupsRemaining={currentMatchups.length}
         pickEntrant={pickEntrant}

@@ -17,6 +17,7 @@ const CircleCheck = () => (
 );
 
 const MatchUp = ({
+  searchTerm,
   numMatchupsRemaining = 0,
   currentMatchup = [{}, {}],
   pickEntrant = () => {},
@@ -35,8 +36,8 @@ const MatchUp = ({
 
   return (
     <div className={`match-up ${theme}`}>
-      <h4>Couch Faceoff</h4>
-      <h1>Pick the best couch...</h1>
+      <h4>Image Faceoff</h4>
+      <h1>Pick the best {searchTerm.toLowerCase()}...</h1>
       <div className="match-up__images">
         {numMatchupsRemaining > 0 ? (
           <Fragment>
@@ -82,6 +83,7 @@ const MatchUp = ({
 
 MatchUp.propTypes = {
   numMatchupsRemaining: PropTypes.number.isRequired,
+  searchTerm: PropTypes.string.isRequired,
 };
 
 export default MatchUp;
