@@ -5,10 +5,12 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "dev": "concurrently \"node server.js\" \"webpack-dev-server --config webpack/dev.config.js --open --mode development\"",
-    "prod": "webpack --config webpack/prod.config.js --mode production",
+    "dev": "concurrently \"node server.js\" \"webpack-dev-server --config webpack/dev.config.js --open\"",
+    "prod": "webpack --config webpack/prod.config.js",
     "build": "npm run prod",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev:analyze": "ANALYZE_WEBPACK_BUNDLE=true npm run dev",
+    "build:analyze": "ANALYZE_WEBPACK_BUNDLE=true npm run build"
   },
   "keywords": [],
   "author": "",
@@ -48,5 +50,8 @@
   "engines": {
     "node": "12.14.1",
     "npm": "6.13.7"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^4.4.0"
   }
 }

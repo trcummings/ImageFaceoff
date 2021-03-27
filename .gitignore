@@ -10,6 +10,9 @@
 /public/*
 !/public/favicon
 
+#webpack
+stats.json
+
 # misc
 .DS_Store
 .env
