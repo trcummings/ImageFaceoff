@@ -51,6 +51,8 @@ const MatchUp = ({
               <img
                 src={entrant1.imageUrl}
                 onLoad={() => setEntrantLoaded(entrant1.id)}
+                alt={`Photo by ${entrant1.user} with tags: ${entrant1.tags}`}
+                title={`Photo by ${entrant1.user} with tags: ${entrant1.tags}`}
               />
             </div>
             <div
@@ -62,6 +64,8 @@ const MatchUp = ({
               <img
                 src={entrant2.imageUrl}
                 onLoad={() => setEntrantLoaded(entrant2.id)}
+                alt={`Photo by ${entrant2.user} with tags: ${entrant2.tags}`}
+                title={`Photo by ${entrant2.user} with tags: ${entrant2.tags}`}
               />
             </div>
             <div

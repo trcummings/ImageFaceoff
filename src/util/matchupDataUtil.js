@@ -31,8 +31,18 @@ export function createNewMatchups(data = [], numMatchups = 0) {
       alreadyPaired[`${match1.id},${match2.id}`] = true;
 
       allPossiblePairs.push([
-        { id: match1.id, imageUrl: match1.largeImageURL },
-        { id: match2.id, imageUrl: match2.largeImageURL },
+        {
+          id: match1.id,
+          imageUrl: match1.largeImageURL,
+          user: match1.user,
+          tags: match1.tags,
+        },
+        {
+          id: match2.id,
+          imageUrl: match2.largeImageURL,
+          user: match2.user,
+          tags: match2.tags,
+        },
       ]);
     }
   }
@@ -47,7 +57,7 @@ export function createNewMatchups(data = [], numMatchups = 0) {
 export function createNewMatchupData(data = [], oldMatchupData = {}) {
   // Create new entries of matchup data in an object
   let newMatchupData = data.reduce((acc, hit) => {
-    const { previewURL, userImageURL, id } = hit;
+    const { previewURL, userImageURL, id, user, tags } = hit;
     const matchData = {
       id,
       previewUrl: previewURL,
@@ -55,6 +65,8 @@ export function createNewMatchupData(data = [], oldMatchupData = {}) {
       numMatchups: 0,
       winsReceived: 0,
       eloRating: 0,
+      user,
+      tags,
     };
     return Object.assign(acc, { [id]: matchData });
   }, {});
