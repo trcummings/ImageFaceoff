@@ -2,9 +2,9 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
-require("dotenv").config();
+const { PORT } = require("../config");
 
-const { PORT } = require("./config");
+require("dotenv").config();
 
 module.exports = {
   entry: "./src/index.js",
@@ -48,11 +48,4 @@ module.exports = {
       },
     }),
   ],
-  devServer: {
-    index: "", // specify to enable root proxying
-    proxy: {
-      context: () => true,
-      target: `http://localhost:${PORT}`,
-    },
-  },
 };
