@@ -8,6 +8,7 @@
 
 # production
 /public/*
+!/public/favicon
 
 # misc
 .DS_Store
