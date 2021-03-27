@@ -4,7 +4,7 @@
  * @version 1.0.0
  * @author [Thomsen Cummings](https://github.com/trcummings)
  */
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import Elo from "elo-js";
 
 import MatchUp from "./components/MatchUp";
@@ -39,6 +39,7 @@ const App = () => {
   const getImages = ({ searchTerm, maxEntrants, totalMatchups }) => {
     setSearchTerm(searchTerm);
     setIsLoadingRound(true);
+
     return fetch(
       `/pixabay?maxEntrants=${maxEntrants}&searchTerm=${searchTerm}`,
       {
@@ -103,9 +104,20 @@ const App = () => {
     getImages(initialMatchSearch);
   }, []);
 
+  // Create ref to scroll up to after getImages call
+  const topRef = useRef(null);
+  const getImagesThenScroll = async (...args) => {
+    // Start Getting Images
+    getImages(...args);
+    // Scroll to top
+    topRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   // Render
   return (
     <Fragment>
+      <div ref={topRef} />
+      {/* This only div exists to be at page top to scroll to*/}
       <ThemeModeButton />
       <MatchUp
         isLoadingRound={isLoadingRound}
@@ -116,7 +128,7 @@ const App = () => {
       />
       <LiveResults matchupData={matchupData} />
       <SearchForMatchups
-        getImages={getImages}
+        getImages={getImagesThenScroll}
         initialValues={initialMatchSearch}
       />
       <GithubFooter />
