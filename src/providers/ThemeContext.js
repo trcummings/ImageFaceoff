@@ -25,13 +25,13 @@ const ThemeProvider = ({ children }) => {
 
   // Remember the theme using local storage and rehydrate the state on first load
   useEffect(() => {
-    const theme = localStorage.getItem("theme");
+    const theme = localStorage.getItem("ImageFaceoff--theme");
     if (theme) setThemeMode(theme);
   }, []);
 
   const setThemeMode = (mode) => {
     if (ALL_THEMES.includes(mode)) {
-      localStorage.setItem("theme", mode);
+      localStorage.setItem("ImageFaceoff--theme", mode);
       setTheme(mode);
     }
   };

@@ -17,6 +17,7 @@ import {
   createNewMatchups,
   createNewMatchupData,
 } from "./util/matchupDataUtil";
+import { usePageUnload } from "./util/hooks";
 
 const initialMatchSearch = {
   searchTerm: "Couch",
@@ -99,10 +100,37 @@ const App = () => {
     setCurrentMatchups(newMatchups);
   };
 
-  // Run image search intially just once
+  // Hydrate state from localStorage, or else run image search if no state exists
   useEffect(() => {
-    getImages(initialMatchSearch);
+    const _currentMatchups = localStorage.getItem("ImageFaceoff--matchups");
+    const _matchupData = localStorage.getItem("ImageFaceoff--matchupData");
+    const _searchTerm = localStorage.getItem("ImageFaceoff--searchTerm");
+
+    if (!_matchupData) {
+      getImages(initialMatchSearch);
+    } else {
+      setCurrentMatchups(JSON.parse(_currentMatchups));
+      setMatchupData(JSON.parse(_matchupData));
+      setSearchTerm(JSON.parse(_searchTerm));
+      setIsLoadingRound(false);
+    }
   }, []);
+
+  // Dehydrate state on pageUnload to persist matchups across sessions
+  usePageUnload(() => {
+    localStorage.setItem(
+      "ImageFaceoff--matchups",
+      JSON.stringify(currentMatchups)
+    );
+    localStorage.setItem(
+      "ImageFaceoff--matchupData",
+      JSON.stringify(matchupData)
+    );
+    localStorage.setItem(
+      "ImageFaceoff--searchTerm",
+      JSON.stringify(currentSearchTerm)
+    );
+  });
 
   // Create ref to scroll up to after getImages call
   const topRef = useRef(null);
