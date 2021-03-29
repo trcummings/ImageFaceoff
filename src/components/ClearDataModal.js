@@ -6,7 +6,7 @@
  */
 import React, { Fragment, useRef } from "react";
 
-import Modal from "./modal";
+import Modal from "./Modal";
 import { useTheme } from "../providers/ThemeContext";
 
 const ClearDataModal = ({ clearData = () => {} }) => {
