@@ -21,19 +21,20 @@ const MatchUp = ({
   isLoadingRound,
   numMatchupsRemaining = 0,
   currentMatchup = [{}, {}],
+  matchupData = {},
   pickEntrant = () => {},
 }) => {
   const { theme } = useTheme();
-  const [entrant1, entrant2] = currentMatchup;
-
   const [loadedImages, setImageLoaded] = useState({});
-
-  const bothImagesLoaded =
-    loadedImages[entrant1.id] && loadedImages[entrant2.id];
 
   function setEntrantLoaded(id) {
     setImageLoaded({ ...loadedImages, [id]: true });
   }
+
+  const [entrant1Id, entrant2Id] = currentMatchup;
+  const bothImagesLoaded = loadedImages[entrant1Id] && loadedImages[entrant2Id];
+  const entrant1 = matchupData[entrant1Id];
+  const entrant2 = matchupData[entrant2Id];
 
   return (
     <div className={`match-up ${theme}`}>
@@ -49,7 +50,7 @@ const MatchUp = ({
             >
               <CircleCheck />
               <img
-                src={entrant1.imageUrl}
+                src={entrant1.largeImageUrl}
                 onLoad={() => setEntrantLoaded(entrant1.id)}
                 alt={`Photo by ${entrant1.user} with tags: ${entrant1.tags}`}
                 title={`Photo by ${entrant1.user} with tags: ${entrant1.tags}`}
@@ -62,7 +63,7 @@ const MatchUp = ({
             >
               <CircleCheck />
               <img
-                src={entrant2.imageUrl}
+                src={entrant2.largeImageUrl}
                 onLoad={() => setEntrantLoaded(entrant2.id)}
                 alt={`Photo by ${entrant2.user} with tags: ${entrant2.tags}`}
                 title={`Photo by ${entrant2.user} with tags: ${entrant2.tags}`}

@@ -149,6 +149,7 @@ const App = () => {
       {/* This div only exists to be at page top to scroll to*/}
       <ThemeModeButton />
       <MatchUp
+        matchupData={matchupData}
         isLoadingRound={isLoadingRound}
         searchTerm={currentSearchTerm}
         currentMatchup={currentMatchups[0]}
