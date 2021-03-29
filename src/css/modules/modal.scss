@@ -1,0 +1,149 @@
+button.open-modal-button {
+  padding: 1em;
+  border-radius: 5px;
+  border: 1px solid;
+  text-align: center;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      background-color: $medium;
+      border: 1px solid $medium;
+      color: $lightest;
+
+      @include hover-state(color, $lightest);
+      @include hover-state(background-color, $medium);
+      @include hover-state(border-color, $medium);
+    }
+  }
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
+  }
+}
+
+div.modal {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: -1;
+
+  & > div.modal__background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: $black;
+    transition: all 0.25s ease-in-out;
+    opacity: 0;
+  }
+
+  &.modal-open {
+    z-index: 2;
+
+    & > div.modal__background {
+      opacity: 50%;
+    }
+  }
+
+  & > .modalWrapper__outer {
+    @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+      & {
+        background-color: $medium;
+        border: 1px solid $dark;
+        color: $lightest;
+      }
+    }
+
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 5px;
+    padding: 1em;
+
+    &.light-mode {
+      @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+    }
+
+    &.dark-mode {
+      @include themed-styles(
+        $light-purple,
+        $medium-purple,
+        $dark-purple,
+        $black
+      );
+    }
+
+    &.clown-mode {
+      @include themed-styles(
+        $clown-yellow,
+        $clown-orange,
+        $clown-red,
+        $clown-purple
+      );
+    }
+
+    div.modalWrapper__inner {
+      h2 {
+        padding-top: 0em;
+      }
+
+      p {
+        padding-bottom: 2em;
+      }
+
+      button.clear-data-button,
+      button.x-out-button {
+        padding: 1em;
+        border-radius: 5px;
+        border: 1px solid;
+        text-align: center;
+        color: white;
+        background-color: red;
+        border-color: red;
+        font-weight: bold;
+
+        &:disabled {
+          cursor: default;
+        }
+
+        @include hover-state(color, white);
+        @include hover-state(background-color, red);
+        @include hover-state(border-color, red);
+      }
+
+      button.x-out-button {
+        float: left;
+        margin: -1em;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 0px;
+      }
+
+      button.clear-data-button {
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  }
+}
