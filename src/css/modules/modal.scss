@@ -40,8 +40,6 @@ button.open-modal-button {
 
 div.modal {
   position: fixed;
-  height: 100vh;
-  width: 100vw;
   top: 0;
   left: 0;
   right: 0;
@@ -61,89 +59,158 @@ div.modal {
   &.modal-open {
     z-index: 2;
 
-    & > div.modal__background {
+    div.modal__background {
       opacity: 50%;
+    }
+
+    & > *:not(div.modal__background) {
+      animation-name: bounceInDown;
+      animation-duration: 300ms;
+    }
+
+    &.modal-is-closing {
+      div.modal__background {
+        opacity: 0%;
+      }
+
+      & > *:not(div.modal__background) {
+        animation-name: bounceOutUp;
+        animation-duration: 300ms;
+      }
+    }
+  }
+}
+
+div.modalWrapper__outer {
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      background-color: $medium;
+      border: 1px solid $dark;
+      color: $lightest;
     }
   }
 
-  & > .modalWrapper__outer {
-    @mixin themed-styles($lightest, $lighter, $medium, $dark) {
-      & {
-        background-color: $medium;
-        border: 1px solid $dark;
-        color: $lightest;
-      }
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  border-radius: 5px;
+  padding: 1em;
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
+  }
+
+  div.modalWrapper__inner {
+    h2 {
+      padding-top: 0em;
     }
 
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    border-radius: 5px;
-    padding: 1em;
-
-    &.light-mode {
-      @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+    p {
+      padding-bottom: 2em;
     }
 
-    &.dark-mode {
-      @include themed-styles(
-        $light-purple,
-        $medium-purple,
-        $dark-purple,
-        $black
-      );
+    button.clear-data-button,
+    button.x-out-button {
+      padding: 1em;
+      border-radius: 5px;
+      border: 1px solid;
+      text-align: center;
+      color: white;
+      background-color: red;
+      border-color: red;
+      font-weight: bold;
+
+      &:disabled {
+        cursor: default;
+      }
+
+      @include hover-state(color, white);
+      @include hover-state(background-color, red);
+      @include hover-state(border-color, red);
     }
 
-    &.clown-mode {
-      @include themed-styles(
-        $clown-yellow,
-        $clown-orange,
-        $clown-red,
-        $clown-purple
-      );
+    button.x-out-button {
+      float: left;
+      margin: -1em;
+      border-bottom-left-radius: 0px;
+      border-top-right-radius: 0px;
     }
 
-    div.modalWrapper__inner {
-      h2 {
-        padding-top: 0em;
-      }
-
-      p {
-        padding-bottom: 2em;
-      }
-
-      button.clear-data-button,
-      button.x-out-button {
-        padding: 1em;
-        border-radius: 5px;
-        border: 1px solid;
-        text-align: center;
-        color: white;
-        background-color: red;
-        border-color: red;
-        font-weight: bold;
-
-        &:disabled {
-          cursor: default;
-        }
-
-        @include hover-state(color, white);
-        @include hover-state(background-color, red);
-        @include hover-state(border-color, red);
-      }
-
-      button.x-out-button {
-        float: left;
-        margin: -1em;
-        border-bottom-left-radius: 0px;
-        border-top-right-radius: 0px;
-      }
-
-      button.clear-data-button {
-        margin: 0 auto;
-        display: block;
-      }
+    button.clear-data-button {
+      margin: 0 auto;
+      display: block;
     }
+  }
+}
+
+/// ANIMATIONS
+// based on Animate.css's bounceInDown and bounceOutUp functions
+@keyframes bounceInDown {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -3000px) scaleY(1);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate(-50%, 25px) scaleY(0.9);
+  }
+
+  75% {
+    transform: translate(-50%, -10px) scaleY(0.95);
+  }
+
+  90% {
+    transform: translate(-50%, 5px) scaleY(0.985);
+  }
+
+  to {
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes bounceOutUp {
+  from,
+  20%,
+  40%,
+  45%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  20% {
+    transform: translate(-50%, -10px) scaleY(0.985);
+  }
+
+  40%,
+  45% {
+    opacity: 1;
+    transform: translate(-50%, 25px) scaleY(0.9);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -400px) scaleY(1);
   }
 }

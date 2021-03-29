@@ -20,22 +20,35 @@ const Modal = (
     closeOnEsc = true,
     isOpenByDefault = false,
     closeOnClickOut = true,
+    closeTimeout = 300,
   },
   modalRef
 ) => {
   const [isOpen, setOpen] = useState(isOpenByDefault);
+  const [isClosing, setIsClosing] = useState(false);
   const modalBgRef = useRef(null);
+
+  // If we're given a closeTimeout amount, delay closing until then
+  const closeModal = () => {
+    if (closeTimeout > 0) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setOpen(false);
+        setIsClosing(false);
+      }, closeTimeout);
+    } else setOpen(false);
+  };
 
   // This allows us to expose methods on the parent ref e.g. `modalRef.current.open()`
   useImperativeHandle(modalRef, () => ({
     open: () => setOpen(true),
-    close: () => setOpen(false),
+    close: closeModal,
   }));
 
   if (closeOnEsc) {
     // keyCode 27 is the Escape key
     const onKeydown = useCallback((event) => {
-      if (event.keyCode === 27) setOpen(false);
+      if (event.keyCode === 27) closeModal();
     });
 
     // Pass in onKeydown and isOpen as dependencies so it adds and removes the listeners when
@@ -50,7 +63,7 @@ const Modal = (
   if (closeOnClickOut) {
     // If our event target on mousedown is the modal background ref, close it
     const onClick = useCallback((event) => {
-      if (event.target === modalBgRef.current) setOpen(false);
+      if (event.target === modalBgRef.current) closeModal();
     });
 
     useEffect(() => {
@@ -63,7 +76,9 @@ const Modal = (
   // Create the portal on the document body on open
   return createPortal(
     isOpen ? (
-      <div className="modal modal-open">
+      <div
+        className={`modal modal-open${isClosing ? " modal-is-closing" : ""}`}
+      >
         <div ref={modalBgRef} className="modal__background" />
         {children}
       </div>

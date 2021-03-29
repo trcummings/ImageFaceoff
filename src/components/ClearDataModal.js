@@ -21,7 +21,7 @@ const ClearDataModal = ({ clearData = () => {} }) => {
       >
         Clear Matchup Data
       </button>
-      <Modal ref={modalRef}>
+      <Modal ref={modalRef} closeTimeout={300}>
         <div className={`modalWrapper__outer ${theme}`}>
           <div className="modalWrapper__inner">
             <button
