@@ -1,3 +1,9 @@
+/**
+ * A Context API Provider HOC for determining the current theme of the component
+ *
+ * @version 1.0.0
+ * @author [Thomsen Cummings](https://github.com/trcummings)
+ */
 import React, { createContext, useEffect, useState, useContext } from "react";
 
 export const LIGHT_MODE = "light-mode";
