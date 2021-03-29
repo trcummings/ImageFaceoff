@@ -33,8 +33,8 @@ const MatchUp = ({
 
   const [entrant1Id, entrant2Id] = currentMatchup;
   const bothImagesLoaded = loadedImages[entrant1Id] && loadedImages[entrant2Id];
-  const entrant1 = matchupData[entrant1Id];
-  const entrant2 = matchupData[entrant2Id];
+  const entrant1 = matchupData[entrant1Id] || {};
+  const entrant2 = matchupData[entrant2Id] || {};
 
   return (
     <div className={`match-up ${theme}`}>
