@@ -36,6 +36,8 @@ $clown-purple: #845ec2;
   }
 }
 
+@import "./modules/modal.scss";
+
 div.theme-icon {
   position: relative;
 
@@ -264,6 +266,12 @@ div.live-results {
 
   padding-bottom: 1em;
 
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   div.live-results__results {
     width: 80%;
     border-radius: 5px;
@@ -338,12 +346,13 @@ div.search-for-matchups {
         & > button {
           background-color: $medium;
           color: $lightest;
+          border-color: $medium;
 
           @include hover-state(background-color, $medium);
 
           &:disabled {
             background-color: $lighter;
-            border: 1px solid $medium;
+            border-color: $medium;
             color: $medium;
           }
         }
@@ -389,6 +398,7 @@ div.search-for-matchups {
     & > button {
       padding: 1em;
       border-radius: 5px;
+      border: 1px solid;
       text-align: center;
 
       &:disabled {

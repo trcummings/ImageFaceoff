@@ -100,11 +100,15 @@ const App = () => {
     setCurrentMatchups(newMatchups);
   };
 
+  // Constants for localStorage management
+  const MATCHUPS = "ImageFaceoff--matchups";
+  const MATCHUP_DATA = "ImageFaceoff--matchupData";
+  const SEARCH_TERM = "ImageFaceoff--searchTerm";
   // Hydrate state from localStorage, or else run image search if no state exists
   useEffect(() => {
-    const _currentMatchups = localStorage.getItem("ImageFaceoff--matchups");
-    const _matchupData = localStorage.getItem("ImageFaceoff--matchupData");
-    const _searchTerm = localStorage.getItem("ImageFaceoff--searchTerm");
+    const _currentMatchups = localStorage.getItem(MATCHUPS);
+    const _matchupData = localStorage.getItem(MATCHUP_DATA);
+    const _searchTerm = localStorage.getItem(SEARCH_TERM);
 
     if (!_matchupData) {
       getImages(initialMatchSearch);
@@ -115,22 +119,19 @@ const App = () => {
       setIsLoadingRound(false);
     }
   }, []);
-
   // Dehydrate state on pageUnload to persist matchups across sessions
   usePageUnload(() => {
-    localStorage.setItem(
-      "ImageFaceoff--matchups",
-      JSON.stringify(currentMatchups)
-    );
-    localStorage.setItem(
-      "ImageFaceoff--matchupData",
-      JSON.stringify(matchupData)
-    );
-    localStorage.setItem(
-      "ImageFaceoff--searchTerm",
-      JSON.stringify(currentSearchTerm)
-    );
+    localStorage.setItem(MATCHUPS, JSON.stringify(currentMatchups));
+    localStorage.setItem(MATCHUP_DATA, JSON.stringify(matchupData));
+    localStorage.setItem(SEARCH_TERM, JSON.stringify(currentSearchTerm));
   });
+  // Create clear data function
+  const clearMatchData = () => {
+    localStorage.removeItem(MATCHUPS);
+    localStorage.removeItem(MATCHUP_DATA);
+    setMatchupData({});
+    setCurrentMatchups([]);
+  };
 
   // Create ref to scroll up to after getImages call
   const topRef = useRef(null);
@@ -145,7 +146,7 @@ const App = () => {
   return (
     <Fragment>
       <div ref={topRef} />
-      {/* This only div exists to be at page top to scroll to*/}
+      {/* This div only exists to be at page top to scroll to*/}
       <ThemeModeButton />
       <MatchUp
         isLoadingRound={isLoadingRound}
@@ -154,7 +155,7 @@ const App = () => {
         numMatchupsRemaining={currentMatchups.length}
         pickEntrant={pickEntrant}
       />
-      <LiveResults matchupData={matchupData} />
+      <LiveResults matchupData={matchupData} clearMatchData={clearMatchData} />
       <SearchForMatchups
         getImages={getImagesThenScroll}
         initialValues={initialMatchSearch}

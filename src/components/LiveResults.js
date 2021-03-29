@@ -8,6 +8,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { useTheme } from "../providers/ThemeContext";
+import ClearDataModal from "./ClearDataModal";
 
 const ResultItem = ({ idx, imgUrl, numMatchups, winRate, eloRating }) => (
   <div className="live-results__resultItem">
@@ -21,7 +22,7 @@ const ResultItem = ({ idx, imgUrl, numMatchups, winRate, eloRating }) => (
   </div>
 );
 
-const LiveResults = ({ matchupData }) => {
+const LiveResults = ({ matchupData, clearMatchData }) => {
   const { theme } = useTheme();
 
   // Order results by win rate
@@ -53,7 +54,10 @@ const LiveResults = ({ matchupData }) => {
 
   return (
     <div className={`live-results ${theme}`}>
-      <h2>Live Results</h2>
+      <div className="flex-center">
+        <h2>Live Results</h2>
+        <ClearDataModal clearData={clearMatchData} />
+      </div>
       <div className="live-results__results">
         {rankedResults.length > 0 ? (
           rankedResults.map(
