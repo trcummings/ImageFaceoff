@@ -31,8 +31,8 @@ const ClearDataModal = ({ clearData = () => {} }) => {
               X
             </button>
             <h2>
-              <i class="fas fa-exclamation-triangle" /> Warning{" "}
-              <i class="fas fa-exclamation-triangle" />
+              <i className="fas fa-exclamation-triangle" /> Warning{" "}
+              <i className="fas fa-exclamation-triangle" />
             </h2>
             <p>
               This will clear ALL your data, AND end the current round of match
