@@ -1,0 +1,29 @@
+div.theme-icon {
+  position: relative;
+
+  & > i {
+    position: absolute;
+    right: 0;
+    font-size: 2em;
+    padding: 0.5em;
+    cursor: pointer;
+
+    &.light-mode {
+      color: $white;
+
+      @include hover-state(color, $white);
+    }
+
+    &.dark-mode {
+      color: $light-purple;
+
+      @include hover-state(color, $light-purple);
+    }
+
+    &.clown-mode {
+      color: $clown-yellow;
+
+      @include hover-state(color, $clown-yellow);
+    }
+  }
+}

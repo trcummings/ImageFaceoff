@@ -1,0 +1,174 @@
+div.search-for-matchups {
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      color: $dark;
+      background-color: $lighter;
+
+      form {
+        input {
+          background-color: $lightest;
+          color: $dark;
+          border: 2px solid $medium;
+        }
+
+        & > button {
+          background-color: $medium;
+          color: $lightest;
+          border-color: $medium;
+
+          @include hover-state(background-color, $medium);
+
+          &:disabled {
+            background-color: $lighter;
+            border-color: $medium;
+            color: $medium;
+          }
+        }
+      }
+    }
+  }
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
+  }
+
+  padding-bottom: 5em;
+
+  form {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > div {
+      padding-right: 5px;
+    }
+
+    input {
+      padding: calc(1em - 2px);
+      border-radius: 5px;
+    }
+
+    & > button {
+      padding: 1em;
+      border-radius: 5px;
+      border: 1px solid;
+      text-align: center;
+
+      &:disabled {
+        cursor: default;
+      }
+    }
+
+    label {
+      height: 22px;
+    }
+
+    .flex-grow-2 {
+      flex-grow: 2;
+    }
+
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flex-20 {
+      flex-basis: 20%;
+    }
+
+    .flex-40 {
+      flex-basis: 40%;
+    }
+  }
+
+  div.search-for-matchups__errorMessage {
+    height: 22px;
+  }
+
+  div.search-for-matchups__invisibleErrorPlaceholder {
+    opacity: 0;
+    height: 22px;
+  }
+}
+
+@media (max-width: 720px) {
+  div.search-for-matchups {
+    form {
+      flex-direction: column;
+
+      & > div {
+        width: 86%;
+        padding-right: 0;
+      }
+
+      & > button {
+        margin-top: 0.75em;
+        width: calc(80% - 6px);
+      }
+    }
+  }
+}
+
+footer.github-footer {
+  @mixin themed-styles($lightest, $lighter, $medium, $dark) {
+    & {
+      color: $lightest;
+      background-color: $dark;
+
+      & > a {
+        @include hover-state(color, $lightest);
+      }
+    }
+  }
+
+  &.light-mode {
+    @include themed-styles($white, $light-blue, $medium-blue, $dark-blue);
+  }
+
+  &.dark-mode {
+    @include themed-styles($light-purple, $medium-purple, $dark-purple, $black);
+  }
+
+  &.clown-mode {
+    @include themed-styles(
+      $clown-yellow,
+      $clown-orange,
+      $clown-red,
+      $clown-purple
+    );
+  }
+
+  position: relative;
+  padding: 2em;
+
+  & > a {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+
+    & > i {
+      font-size: 2em;
+      padding-right: 0.25em;
+    }
+  }
+}
