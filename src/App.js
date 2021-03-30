@@ -18,6 +18,11 @@ import {
   createNewMatchupData,
 } from "./util/matchupDataUtil";
 import { usePageUnload } from "./util/hooks";
+import {
+  getFromStorage,
+  setInStorage,
+  clearFromStorage,
+} from "./util/localStorage";
 
 const initialMatchSearch = {
   searchTerm: "Couch",
@@ -33,7 +38,7 @@ const App = () => {
   const [currentMatchups, setCurrentMatchups] = useState([]);
   // These are just for display purposes, display search term, show initial load instead of "Round Over"
   const [currentSearchTerm, setSearchTerm] = useState(
-    initialMatchSearch.searchTerm
+    getFromStorage("searchTerm") || initialMatchSearch.searchTerm
   );
   const [isLoadingRound, setIsLoadingRound] = useState(true);
 
@@ -100,35 +105,32 @@ const App = () => {
     setCurrentMatchups(newMatchups);
   };
 
-  // Constants for localStorage management
-  const MATCHUPS = "ImageFaceoff--matchups";
-  const MATCHUP_DATA = "ImageFaceoff--matchupData";
-  const SEARCH_TERM = "ImageFaceoff--searchTerm";
   // Hydrate state from localStorage, or else run image search if no state exists
   useEffect(() => {
-    const _currentMatchups = localStorage.getItem(MATCHUPS);
-    const _matchupData = localStorage.getItem(MATCHUP_DATA);
-    const _searchTerm = localStorage.getItem(SEARCH_TERM);
+    const _currentMatchups = getFromStorage("matchups");
+    const _matchupData = getFromStorage("matchupData");
+    const _searchTerm = getFromStorage("searchTerm");
 
     if (!_matchupData) {
       getImages(initialMatchSearch);
     } else {
-      setCurrentMatchups(JSON.parse(_currentMatchups));
-      setMatchupData(JSON.parse(_matchupData));
-      setSearchTerm(JSON.parse(_searchTerm));
+      setCurrentMatchups(_currentMatchups);
+      setMatchupData(_matchupData);
+      setSearchTerm(_searchTerm);
       setIsLoadingRound(false);
     }
   }, []);
   // Dehydrate state on pageUnload to persist matchups across sessions
   usePageUnload(() => {
-    localStorage.setItem(MATCHUPS, JSON.stringify(currentMatchups));
-    localStorage.setItem(MATCHUP_DATA, JSON.stringify(matchupData));
-    localStorage.setItem(SEARCH_TERM, JSON.stringify(currentSearchTerm));
+    setInStorage("matchups", currentMatchups);
+    setInStorage("matchupData", matchupData);
+    setInStorage("searchTerm", currentSearchTerm);
   });
+
   // Create clear data function
   const clearMatchData = () => {
-    localStorage.removeItem(MATCHUPS);
-    localStorage.removeItem(MATCHUP_DATA);
+    clearFromStorage("matchups");
+    clearFromStorage("matchupData");
     setMatchupData({});
     setCurrentMatchups([]);
   };
@@ -159,7 +161,9 @@ const App = () => {
       <LiveResults matchupData={matchupData} clearMatchData={clearMatchData} />
       <SearchForMatchups
         getImages={getImagesThenScroll}
-        initialValues={initialMatchSearch}
+        initialValues={Object.assign({}, initialMatchSearch, {
+          searchTerm: currentSearchTerm,
+        })}
       />
       <GithubFooter />
     </Fragment>
